@@ -1,0 +1,212 @@
+@font-face {
+  font-family: "Press Start";
+  src: local("Courier New");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #070a12;
+  font-family: "Press Start", "Courier New", monospace;
+  cursor: crosshair;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, #1a2744 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 15% 20%, rgba(180, 40, 50, 0.12), transparent 50%),
+    linear-gradient(180deg, #0b1020 0%, #070a12 45%, #05070e 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.city {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28%;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(5, 7, 14, 0.85) 100%),
+    repeating-linear-gradient(
+      90deg,
+      #0e1528 0px,
+      #0e1528 18px,
+      #121a30 18px,
+      #121a30 22px,
+      #0c1222 22px,
+      #0c1222 40px,
+      #162038 40px,
+      #162038 52px,
+      #0a0f1c 52px,
+      #0a0f1c 70px
+    );
+  clip-path: polygon(
+    0% 100%,
+    0% 55%,
+    4% 55%,
+    4% 35%,
+    7% 35%,
+    7% 48%,
+    11% 48%,
+    11% 22%,
+    14% 22%,
+    14% 40%,
+    18% 40%,
+    18% 30%,
+    22% 30%,
+    22% 50%,
+    28% 50%,
+    28% 18%,
+    32% 18%,
+    32% 42%,
+    38% 42%,
+    38% 28%,
+    42% 28%,
+    42% 55%,
+    48% 55%,
+    48% 12%,
+    53% 12%,
+    53% 38%,
+    58% 38%,
+    58% 25%,
+    63% 25%,
+    63% 48%,
+    70% 48%,
+    70% 20%,
+    75% 20%,
+    75% 44%,
+    80% 44%,
+    80% 32%,
+    85% 32%,
+    85% 52%,
+    90% 52%,
+    90% 28%,
+    94% 28%,
+    94% 45%,
+    100% 45%,
+    100% 100%
+  );
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hint {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(220, 230, 255, 0.28);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 1.2s ease;
+}
+
+.hint.fade {
+  opacity: 0;
+}
+
+.batman {
+  position: fixed;
+  z-index: 10;
+  width: var(--batman-size, 88px);
+  height: var(--batman-size, 88px);
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transform-origin: center center;
+  will-change: left, top, transform;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.batman img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 0 1px rgba(255, 255, 255, 0.55))
+    drop-shadow(0 0 6px rgba(200, 30, 45, 0.45))
+    drop-shadow(0 3px 4px rgba(0, 0, 0, 0.65));
+}
+
+.batman.walking img {
+  animation: crawl-bob 0.28s steps(2) infinite;
+}
+
+.batman.facing img {
+  animation: none;
+  transform: scale(1.06);
+}
+
+.batman.firing img {
+  animation: throw-kick 0.35s ease-out;
+}
+
+@keyframes crawl-bob {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes throw-kick {
+  0% {
+    transform: scale(1) translateX(0);
+  }
+  40% {
+    transform: scale(1.12) translateX(4px);
+  }
+  100% {
+    transform: scale(1) translateX(0);
+  }
+}
+
+.projectiles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.batarang {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  margin-top: -18px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter:
+    drop-shadow(0 0 2px rgba(255, 40, 60, 0.9))
+    drop-shadow(0 0 8px rgba(255, 20, 40, 0.5));
+  will-change: left, top, transform, opacity;
+}

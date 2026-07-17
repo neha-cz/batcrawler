@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")"
+
+if [[ ! -x ./batman-crawler ]] || [[ batman_crawler.swift -nt batman-crawler ]]; then
+  swiftc batman_crawler.swift -o batman-crawler -framework Cocoa
+fi
+
+exec ./batman-crawler
